@@ -57,7 +57,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ease-out ${
         scrolled
-          ? "bg-noir/90 backdrop-blur-md border-b border-powder/10"
+          ? "bg-noir/90 backdrop-blur-md border-b border-powder/8"
           : "bg-transparent"
       }`}
     >
@@ -81,7 +81,7 @@ export default function Header() {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className="font-mono text-sm text-powder/70 hover:text-powder transition-colors duration-150 ease-out tracking-wide"
+                className="font-sans text-sm text-powder/70 hover:text-powder transition-colors duration-150 ease-out tracking-wide"
               >
                 {link.label}
               </Link>
@@ -100,14 +100,14 @@ export default function Header() {
 
           <Link
             href="#"
-            className="font-mono text-sm text-powder/70 hover:text-powder transition-colors duration-150 ease-out px-3 py-1.5"
+            className="font-sans text-sm text-powder/70 hover:text-powder transition-colors duration-150 ease-out px-3 py-1.5"
           >
             Sign in
           </Link>
 
           <Link
             href="#pricing"
-            className="font-mono text-sm bg-forsythia text-noir font-semibold px-4 py-2 rounded-md hover:bg-saffron transition-colors duration-150 ease-out"
+            className="font-sans text-sm bg-forsythia text-noir font-semibold px-4 py-2 rounded-md hover:bg-saffron transition-colors duration-150 ease-out"
           >
             Get started
           </Link>
@@ -158,7 +158,7 @@ export default function Header() {
               key={link.label}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="font-mono text-lg text-powder/80 hover:text-forsythia py-3 border-b border-powder/10 transition-colors duration-150 ease-out"
+              className="font-sans text-lg text-powder/80 hover:text-forsythia py-3 border-b border-powder/6 transition-colors duration-150 ease-out"
               style={{
                 transitionDelay: menuOpen ? `${i * 40}ms` : "0ms",
               }}
@@ -170,7 +170,7 @@ export default function Header() {
           <div className="flex flex-col gap-3 mt-8">
             <Link
               href="#"
-              className="font-mono text-center text-powder/70 border border-powder/20 rounded-md py-3 hover:border-powder/40 transition-colors duration-150 ease-out"
+              className="font-sans text-center text-powder/70 border border-powder/20 rounded-md py-3 hover:border-powder/40 transition-colors duration-150 ease-out"
             >
               Sign in
             </Link>
@@ -178,7 +178,7 @@ export default function Header() {
             <Link
               href="#pricing"
               onClick={() => setMenuOpen(false)}
-              className="font-mono text-center bg-forsythia text-noir font-semibold rounded-md py-3 hover:bg-saffron transition-colors duration-150 ease-out"
+              className="font-sans text-center bg-forsythia text-noir font-semibold rounded-md py-3 hover:bg-saffron transition-colors duration-150 ease-out"
             >
               Get started
             </Link>

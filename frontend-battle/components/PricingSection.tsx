@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   type Tier,
   type Cycle,
@@ -42,23 +42,27 @@ function Check() {
 /* ── Pricing card ───────────────────────────────────────── */
 function PricingCard({
   tier,
-  priceRef,
+  price,
+  cycle,
   highlighted,
 }: {
   tier: Tier;
-  priceRef: (el: HTMLSpanElement | null) => void;
+  price: string;
+  cycle: Cycle;
   highlighted?: boolean;
 }) {
   const meta = tierMeta[tier];
+  const unit = cycle === "annual" ? "/yr" : "/mo";
 
   return (
     <article
       className={`
-        relative flex flex-col rounded-xl border p-6 lg:p-8
+        relative flex flex-col rounded-xl border p-6 lg:p-8 transform-gpu will-change-transform
+        transition-shadow transition-transform duration-200 ease-out
         ${
           highlighted
-            ? "bg-nocturnal border-forsythia/60 shadow-[0_0_48px_rgba(255,200,1,0.07)]"
-            : "bg-nocturnal/40 border-powder/10"
+            ? "bg-nocturnal border-forsythia/60 shadow-[0_18px_60px_rgba(255,200,1,0.07)] hover:shadow-[0_24px_80px_rgba(255,200,1,0.09)] hover:scale-[1.01]"
+            : "bg-nocturnal/40 border-powder/10 hover:shadow-[0_12px_40px_rgba(17,76,90,0.14)] hover:scale-[1.01]"
         }
       `}
     >
@@ -74,15 +78,16 @@ function PricingCard({
       {/* Tier label */}
       <p className="section-label mb-1">{`// ${meta.label.toUpperCase()}`}</p>
 
-      {/* Price node — updated imperatively, never re-renders */}
-      <div className="mt-4 mb-1 flex items-baseline gap-1">
+      {/* Price node — react-driven pricing state */}
+      <div className="mt-4 mb-1 flex items-baseline gap-2">
         <span
-          ref={priceRef}
           className="font-mono font-bold text-4xl text-powder"
           aria-live="polite"
           aria-label={`${meta.label} plan price`}
-        />
-        <span className="font-mono text-xs text-powder/40">/mo</span>
+        >
+          {price}
+        </span>
+        <span className="font-mono text-xs text-powder/40">{unit}</span>
       </div>
 
       {/* Tagline */}
@@ -128,74 +133,34 @@ export default function PricingSection() {
   const [cycle, setCycleState] = useState<Cycle>("monthly");
   const [currency, setCurrencyState] = useState<Currency>("INR");
 
-  // One ref per price node
-  const priceRefs = useRef<Record<Tier, HTMLSpanElement | null>>({
-    starter: null,
-    pro: null,
-    enterprise: null,
-  });
+  const prices = useMemo(() => {
+    return TIERS.reduce((acc, tier) => {
+      acc[tier] = formatPrice(computePrice(tier, cycle, currency), currency);
+      return acc;
+    }, {} as Record<Tier, string>);
+  }, [cycle, currency]);
 
-  // Imperatively update ONLY the price text nodes
-  const updateAllPrices = useCallback(
-    (nextCycle: Cycle, nextCurrency: Currency) => {
-      TIERS.forEach((tier) => {
-        const el = priceRefs.current[tier];
-        if (el) {
-          el.textContent = formatPrice(
-            computePrice(tier, nextCycle, nextCurrency),
-            nextCurrency
-          );
-        }
-      });
-    },
-    []
-  );
+  const handleCycleToggle = (next: Cycle) => {
+    setCycleState(next);
+  };
 
-  // Handlers — call updateAllPrices directly, then update toggle UI state
-  const handleCycleToggle = useCallback(
-    (next: Cycle) => {
-      updateAllPrices(next, currency);
-      setCycleState(next);
-    },
-    [currency, updateAllPrices]
-  );
-
-  const handleCurrencyChange = useCallback(
-    (next: Currency) => {
-      updateAllPrices(cycle, next);
-      setCurrencyState(next);
-    },
-    [cycle, updateAllPrices]
-  );
-
-  // Seed initial price text on first render via ref callback factory
-  const makeRefCallback = useCallback(
-    (tier: Tier) => (el: HTMLSpanElement | null) => {
-      priceRefs.current[tier] = el;
-      if (el) {
-        el.textContent = formatPrice(
-          computePrice(tier, cycle, currency),
-          currency
-        );
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [] // intentionally empty — only runs on mount
-  );
+  const handleCurrencyChange = (next: Currency) => {
+    setCurrencyState(next);
+  };
 
   return (
     <section
       id="pricing"
       aria-label="Pricing"
-      className="relative py-24 lg:py-32 border-b border-powder/10"
+      className="relative py-28 lg:py-36 border-b border-powder/6 fade-up fade-up-1"
     >
       <div className="grid-overlay" aria-hidden />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-12 flex flex-col items-center text-center gap-4">
+        <div className="mb-16 flex flex-col items-center text-center gap-4">
           <p className="section-label">// PRICING</p>
-          <h2 className="font-mono font-bold text-3xl lg:text-5xl text-powder max-w-xl leading-tight">
+          <h2 className="font-sans font-semibold text-3xl lg:text-5xl text-powder max-w-xl leading-tight">
             Simple pricing. No surprises.
           </h2>
           <p className="text-powder/55 max-w-md leading-relaxed">
@@ -205,12 +170,12 @@ export default function PricingSection() {
         </div>
 
         {/* ── Controls ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-14">
           {/* Billing cycle toggle */}
           <div
             role="group"
             aria-label="Billing cycle"
-            className="flex items-center bg-nocturnal/60 border border-powder/10 rounded-lg p-1 gap-1"
+            className="flex items-center bg-nocturnal/60 border border-powder/6 rounded-lg p-1 gap-1"
           >
             {(["monthly", "annual"] as Cycle[]).map((c) => (
               <button
@@ -247,7 +212,7 @@ export default function PricingSection() {
               value={currency}
               onChange={(e) => handleCurrencyChange(e.target.value as Currency)}
               aria-label="Select currency"
-              className="font-mono text-xs appearance-none bg-nocturnal/60 border border-powder/10 rounded-lg px-4 py-2.5 pr-8 text-powder/80 hover:border-powder/25 transition-colors duration-150 ease-out cursor-pointer focus:outline-none focus:ring-1 focus:ring-forsythia/50"
+              className="font-mono text-xs appearance-none bg-nocturnal/60 border border-powder/6 rounded-lg px-4 py-2.5 pr-8 text-powder/80 hover:border-powder/20 transition-colors duration-150 ease-out cursor-pointer focus:outline-none focus:ring-1 focus:ring-forsythia/50"
             >
               {CURRENCIES.map((c) => (
                 <option key={c} value={c} className="bg-noir">
@@ -271,13 +236,14 @@ export default function PricingSection() {
         </div>
 
         {/* ── Card grid ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {TIERS.map((tier) => (
             <PricingCard
               key={tier}
               tier={tier}
+              cycle={cycle}
+              price={prices[tier]}
               highlighted={tierMeta[tier].highlighted}
-              priceRef={makeRefCallback(tier)}
             />
           ))}
         </div>

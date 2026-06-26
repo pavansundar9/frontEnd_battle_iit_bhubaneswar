@@ -65,11 +65,12 @@ function BentoCard({
   return (
     <article
       className={`
-        relative flex flex-col justify-between p-6 rounded-xl border cursor-pointer
-        transition-all duration-200 ease-out overflow-hidden min-h-[220px]
+        relative flex flex-col justify-between p-8 rounded-3xl border focus:outline-none
+        overflow-hidden min-h-[280px] group text-powder will-change-transform
+        transition-shadow transition-transform duration-200 ease-out transform-gpu
         ${isActive
-          ? "bg-nocturnal border-forsythia/50 shadow-[0_0_32px_rgba(255,200,1,0.08)]"
-          : "bg-nocturnal/40 border-powder/10 hover:border-powder/25 hover:bg-nocturnal/70"
+          ? "bg-noir border-powder/12 shadow-[0_28px_80px_rgba(0,0,0,0.7)]"
+          : "bg-nocturnal/90 border-powder/10 hover:border-powder/18 hover:scale-[1.02] hover:shadow-[0_18px_60px_rgba(0,0,0,0.28)]"
         }
         ${feature.span}
       `}
@@ -81,9 +82,9 @@ function BentoCard({
       <div>
         <p className="section-label mb-4 text-powder/40">{feature.label}</p>
         <div className={`mb-3 ${feature.accent}`}>
-          <Icon className="w-6 h-6" />
+          <Icon className="w-4 h-4 transition-colors duration-150 ease-out group-hover:text-saffron" />
         </div>
-        <h3 className="font-mono font-semibold text-lg text-powder mb-2">
+        <h3 className="font-sans font-semibold text-lg text-powder mb-2">
           {feature.title}
         </h3>
         <p className="text-sm text-powder/60 leading-relaxed max-w-sm">
@@ -121,17 +122,17 @@ function AccordionItem({
 }) {
   const Icon = feature.icon;
   return (
-    <div className="border-b border-powder/10 last:border-b-0">
+    <div className="border-b border-powder/6 last:border-b-0">
       <button
         onClick={() => onToggle(feature.id)}
         aria-expanded={isOpen}
-        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-nocturnal/30 transition-colors duration-150 ease-out"
+        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-nocturnal/18 transition-colors duration-150 ease-out"
       >
         <div className="flex items-center gap-3">
           <span className={`${feature.accent} flex-shrink-0`}>
             <Icon className="w-5 h-5" />
           </span>
-          <span className="font-mono font-semibold text-powder text-sm">
+          <span className="font-sans font-semibold text-powder text-sm">
             {feature.title}
           </span>
         </div>
@@ -200,19 +201,19 @@ export default function FeatureSection() {
     <section
       id="features"
       aria-label="Features"
-      className="relative py-24 lg:py-32 border-b border-powder/10"
+      className="relative py-28 lg:py-36 border-b border-powder/6 fade-up fade-up-1"
     >
       <div className="grid-overlay" aria-hidden />
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="mb-12">
+        <div className="mb-20">
           <p className="section-label mb-4">// FEATURES</p>
-          <h2 className="font-mono font-bold text-3xl lg:text-5xl text-powder max-w-xl leading-tight">
+          <h2 className="font-sans font-semibold text-3xl lg:text-5xl text-powder max-w-xl leading-tight">
             Everything your agents need to run.
           </h2>
         </div>
 
-        {/* Desktop bento */}
-        <div className="hidden lg:grid grid-cols-3 gap-4">
+        {/* Desktop bento (single light breakout) */}
+        <div className="hidden lg:grid grid-cols-3 gap-6 lg:gap-8 lg:bg-powder/6 lg:rounded-3xl lg:px-8 lg:py-8 lg:border lg:border-powder/6 lg:shadow-sm">
           {features.map((f) => (
             <BentoCard
               key={f.id}
@@ -224,7 +225,7 @@ export default function FeatureSection() {
         </div>
 
         {/* Mobile accordion */}
-        <div className="lg:hidden bg-nocturnal/40 border border-powder/10 rounded-xl overflow-hidden">
+        <div className="lg:hidden bg-nocturnal/40 border border-powder/6 rounded-xl overflow-hidden">
           {features.map((f) => (
             <AccordionItem
               key={f.id}

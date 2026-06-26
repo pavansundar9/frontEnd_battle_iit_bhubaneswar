@@ -11,18 +11,18 @@ export default function StatsStrip() {
   return (
     <section
       aria-label="Platform statistics"
-      className="relative bg-nocturnal/40 border-b border-powder/10 py-16 lg:py-20 overflow-hidden"
+      className="relative bg-nocturnal/40 border-b border-powder/6 py-20 lg:py-24 overflow-hidden"
     >
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(to bottom, rgba(241,246,244,0.03) 0px, rgba(241,246,244,0.03) 1px, transparent 1px, transparent 80px)",
+            "repeating-linear-gradient(to bottom, rgba(217,232,226,0.03) 0px, rgba(217,232,226,0.03) 1px, transparent 1px, transparent 80px)",
         }}
         aria-hidden
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 fade-up fade-up-2">
         <p className="section-label text-center mb-10">// BY THE NUMBERS</p>
 
         <dl className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-powder/10">
@@ -37,7 +37,7 @@ export default function StatsStrip() {
               <dt className="font-mono font-bold text-4xl lg:text-5xl text-powder tracking-tight">
                 {value}
               </dt>
-              <dd className="font-mono text-xs text-powder/45 uppercase tracking-widest leading-snug max-w-[120px]">
+              <dd className="font-sans text-xs text-powder/45 uppercase tracking-widest leading-snug max-w-[120px]">
                 {label}
               </dd>
             </div>
