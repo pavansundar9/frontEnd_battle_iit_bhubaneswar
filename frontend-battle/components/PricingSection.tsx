@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   type Tier,
   type Cycle,
@@ -42,14 +42,17 @@ function Check() {
 /* ── Pricing card ───────────────────────────────────────── */
 function PricingCard({
   tier,
-  priceRef,
+  price,
+  cycle,
   highlighted,
 }: {
   tier: Tier;
-  priceRef: (el: HTMLSpanElement | null) => void;
+  price: string;
+  cycle: Cycle;
   highlighted?: boolean;
 }) {
   const meta = tierMeta[tier];
+  const unit = cycle === "annual" ? "/yr" : "/mo";
 
   return (
     <article
@@ -75,15 +78,16 @@ function PricingCard({
       {/* Tier label */}
       <p className="section-label mb-1">{`// ${meta.label.toUpperCase()}`}</p>
 
-      {/* Price node — updated imperatively, never re-renders */}
-      <div className="mt-4 mb-1 flex items-baseline gap-1">
+      {/* Price node — react-driven pricing state */}
+      <div className="mt-4 mb-1 flex items-baseline gap-2">
         <span
-          ref={priceRef}
           className="font-mono font-bold text-4xl text-powder"
           aria-live="polite"
           aria-label={`${meta.label} plan price`}
-        />
-        <span className="font-mono text-xs text-powder/40">/mo</span>
+        >
+          {price}
+        </span>
+        <span className="font-mono text-xs text-powder/40">{unit}</span>
       </div>
 
       {/* Tagline */}
@@ -129,60 +133,20 @@ export default function PricingSection() {
   const [cycle, setCycleState] = useState<Cycle>("monthly");
   const [currency, setCurrencyState] = useState<Currency>("INR");
 
-  // One ref per price node
-  const priceRefs = useRef<Record<Tier, HTMLSpanElement | null>>({
-    starter: null,
-    pro: null,
-    enterprise: null,
-  });
+  const prices = useMemo(() => {
+    return TIERS.reduce((acc, tier) => {
+      acc[tier] = formatPrice(computePrice(tier, cycle, currency), currency);
+      return acc;
+    }, {} as Record<Tier, string>);
+  }, [cycle, currency]);
 
-  // Imperatively update ONLY the price text nodes
-  const updateAllPrices = useCallback(
-    (nextCycle: Cycle, nextCurrency: Currency) => {
-      TIERS.forEach((tier) => {
-        const el = priceRefs.current[tier];
-        if (el) {
-          el.textContent = formatPrice(
-            computePrice(tier, nextCycle, nextCurrency),
-            nextCurrency
-          );
-        }
-      });
-    },
-    []
-  );
+  const handleCycleToggle = (next: Cycle) => {
+    setCycleState(next);
+  };
 
-  // Handlers — call updateAllPrices directly, then update toggle UI state
-  const handleCycleToggle = useCallback(
-    (next: Cycle) => {
-      updateAllPrices(next, currency);
-      setCycleState(next);
-    },
-    [currency, updateAllPrices]
-  );
-
-  const handleCurrencyChange = useCallback(
-    (next: Currency) => {
-      updateAllPrices(cycle, next);
-      setCurrencyState(next);
-    },
-    [cycle, updateAllPrices]
-  );
-
-  // Seed initial price text on first render via ref callback factory
-  const makeRefCallback = useCallback(
-    (tier: Tier) => (el: HTMLSpanElement | null) => {
-      priceRefs.current[tier] = el;
-      if (el) {
-        el.textContent = formatPrice(
-          computePrice(tier, cycle, currency),
-          currency
-        );
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [] // intentionally empty — only runs on mount
-  );
+  const handleCurrencyChange = (next: Currency) => {
+    setCurrencyState(next);
+  };
 
   return (
     <section
@@ -206,7 +170,7 @@ export default function PricingSection() {
         </div>
 
         {/* ── Controls ── */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-14">
           {/* Billing cycle toggle */}
           <div
             role="group"
@@ -272,13 +236,14 @@ export default function PricingSection() {
         </div>
 
         {/* ── Card grid ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {TIERS.map((tier) => (
             <PricingCard
               key={tier}
               tier={tier}
+              cycle={cycle}
+              price={prices[tier]}
               highlighted={tierMeta[tier].highlighted}
-              priceRef={makeRefCallback(tier)}
             />
           ))}
         </div>

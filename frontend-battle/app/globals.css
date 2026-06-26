@@ -1,6 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/*
+  Tailwind v4 is CSS-first: theme tokens (colors, fonts, etc.) live here
+  instead of tailwind.config.ts. This @theme block replaces what used to
+  be theme.extend.colors / theme.extend.fontFamily in the old config.
+  Delete tailwind.config.ts — it is no longer read.
+*/
+@theme {
+  --color-noir: #172b36;
+  --color-nocturnal: #114c5a;
+  --color-powder: #f1f6f4;
+  --color-mint: #d9e8e2;
+  --color-forsythia: #ffc801;
+  --color-saffron: #ff9932;
+
+  --font-sans: var(--font-inter), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
 
 *,
 *::before,
@@ -14,11 +30,20 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+  IMPORTANT: do not add horizontal padding here.
+  Every section handles its own padding via px-6 lg:px-8 on an inner
+  max-w-* mx-auto container. Padding on body conflicts with any
+  fixed-position or 100vw-based element (e.g. a sticky header bar),
+  because the two end up measuring width against different boxes —
+  that mismatch is what caused the whole-page left-alignment bug.
+*/
 body {
   background-color: #172b36;
   color: #f1f6f4;
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
+  margin: 0;
 }
 
 .hairline {
@@ -57,12 +82,23 @@ body {
 .fade-up-4 { animation-delay: 0.29s; }
 .fade-up-5 { animation-delay: 0.37s; }
 
+/*
+  Grid overlay — structural hairlines, not decoration.
+  Faint vertical rule pattern in low-opacity Mystic Mint.
+*/
 .grid-overlay {
   pointer-events: none;
   position: absolute;
   inset: 0;
   z-index: 0;
-  display: none;
+  display: block;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(217, 232, 226, 0.04) 0px,
+    rgba(217, 232, 226, 0.04) 1px,
+    transparent 1px,
+    transparent 120px
+  );
 }
 
 /* ── CRITICAL: constrain all SVG icons globally ── */

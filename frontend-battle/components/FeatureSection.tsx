@@ -65,8 +65,8 @@ function BentoCard({
   return (
     <article
       className={`
-        relative flex flex-col justify-between p-6 rounded-xl border focus:outline-none
-        overflow-hidden min-h-[220px] group text-powder will-change-transform
+        relative flex flex-col justify-between p-8 rounded-3xl border focus:outline-none
+        overflow-hidden min-h-[280px] group text-powder will-change-transform
         transition-shadow transition-transform duration-200 ease-out transform-gpu
         ${isActive
           ? "bg-noir border-powder/12 shadow-[0_28px_80px_rgba(0,0,0,0.7)]"
@@ -205,7 +205,7 @@ export default function FeatureSection() {
     >
       <div className="grid-overlay" aria-hidden />
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="mb-16">
+        <div className="mb-20">
           <p className="section-label mb-4">// FEATURES</p>
           <h2 className="font-sans font-semibold text-3xl lg:text-5xl text-powder max-w-xl leading-tight">
             Everything your agents need to run.
@@ -213,7 +213,7 @@ export default function FeatureSection() {
         </div>
 
         {/* Desktop bento (single light breakout) */}
-        <div className="hidden lg:grid grid-cols-3 gap-4 lg:gap-6 lg:bg-powder/6 lg:rounded-xl lg:p-6 lg:border lg:border-powder/6 lg:shadow-sm">
+        <div className="hidden lg:grid grid-cols-3 gap-6 lg:gap-8 lg:bg-powder/6 lg:rounded-3xl lg:px-8 lg:py-8 lg:border lg:border-powder/6 lg:shadow-sm">
           {features.map((f) => (
             <BentoCard
               key={f.id}
