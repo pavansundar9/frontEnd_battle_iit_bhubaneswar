@@ -45,7 +45,7 @@ function FAQItem({
   const triggerId = `faq-trigger-${index}`;
 
   return (
-    <div className="border-b border-powder/10 last:border-b-0">
+    <div className="border-b border-powder/6 last:border-b-0">
       <h3>
         <button
           id={triggerId}

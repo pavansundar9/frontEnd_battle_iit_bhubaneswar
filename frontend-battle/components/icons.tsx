@@ -18,7 +18,7 @@ function parseDims(className: string): { width: number; height: number } {
 function StrokeIcon({
   path,
   viewBox = "0 0 24 24",
-  className = "w-5 h-5",
+  className = "w-4 h-4",
   "aria-hidden": ah = true,
   children,
 }: {
@@ -49,23 +49,23 @@ function StrokeIcon({
   );
 }
 
-export const ChevronDown = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const ChevronDown = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon className={className} {...p} path="M19.5 8.25l-7.5 7.5-7.5-7.5" />
 );
 
-export const ChevronUp = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const ChevronUp = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon className={className} {...p} path="M4.5 15.75l7.5-7.5 7.5 7.5" />
 );
 
-export const ChevronRight = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const ChevronRight = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon className={className} {...p} path="M8.25 4.5l7.5 7.5-7.5 7.5" />
 );
 
-export const ChevronLeft = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const ChevronLeft = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon className={className} {...p} path="M15.75 19.5L8.25 12l7.5-7.5" />
 );
 
-export const ChevronUpDown = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const ChevronUpDown = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon
     className={className}
     {...p}
@@ -73,7 +73,7 @@ export const ChevronUpDown = ({ className = "w-5 h-5", ...p }: IconProps) => (
   />
 );
 
-export const Search = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const Search = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon
     className={className}
     {...p}
@@ -81,11 +81,11 @@ export const Search = ({ className = "w-5 h-5", ...p }: IconProps) => (
   />
 );
 
-export const XMark = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const XMark = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon className={className} {...p} path="M6 18L18 6M6 6l12 12" />
 );
 
-export const ArrowPath = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const ArrowPath = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon
     className={className}
     {...p}
@@ -93,7 +93,7 @@ export const ArrowPath = ({ className = "w-5 h-5", ...p }: IconProps) => (
   />
 );
 
-export const ArrowTrendingUp = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const ArrowTrendingUp = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon
     className={className}
     {...p}
@@ -101,7 +101,7 @@ export const ArrowTrendingUp = ({ className = "w-5 h-5", ...p }: IconProps) => (
   />
 );
 
-export const ChartPie = ({ className = "w-5 h-5", ...p }: IconProps) => {
+export const ChartPie = ({ className = "w-4 h-4", ...p }: IconProps) => {
   const { width, height } = parseDims(className);
   return (
     <svg
@@ -124,7 +124,7 @@ export const ChartPie = ({ className = "w-5 h-5", ...p }: IconProps) => {
   );
 };
 
-export const Cog8Tooth = ({ className = "w-5 h-5", ...p }: IconProps) => {
+export const Cog8Tooth = ({ className = "w-4 h-4", ...p }: IconProps) => {
   const { width, height } = parseDims(className);
   return (
     <svg
@@ -147,7 +147,7 @@ export const Cog8Tooth = ({ className = "w-5 h-5", ...p }: IconProps) => {
   );
 };
 
-export const Cube = ({ className = "w-5 h-5", ...p }: IconProps) => {
+export const Cube = ({ className = "w-4 h-4", ...p }: IconProps) => {
   const { width, height } = parseDims(className);
   return (
     <svg
@@ -167,7 +167,7 @@ export const Cube = ({ className = "w-5 h-5", ...p }: IconProps) => {
   );
 };
 
-export const Link = ({ className = "w-5 h-5", ...p }: IconProps) => (
+export const Link = ({ className = "w-4 h-4", ...p }: IconProps) => (
   <StrokeIcon
     className={className}
     {...p}
@@ -175,7 +175,7 @@ export const Link = ({ className = "w-5 h-5", ...p }: IconProps) => (
   />
 );
 
-export const LinkSolid = ({ className = "w-5 h-5", ...p }: IconProps) => {
+export const LinkSolid = ({ className = "w-4 h-4", ...p }: IconProps) => {
   const { width, height } = parseDims(className);
   return (
     <svg

@@ -23,7 +23,7 @@ body {
 
 .hairline {
   border: none;
-  border-top: 1px solid rgba(241, 246, 244, 0.08);
+  border-top: 1px solid rgba(217, 232, 226, 0.04);
   width: 100%;
 }
 
@@ -61,18 +61,26 @@ body {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(
-    to right,
-    rgba(241, 246, 244, 0.035) 0px,
-    rgba(241, 246, 244, 0.035) 1px,
-    transparent 1px,
-    transparent calc(100% / 6)
-  );
   z-index: 0;
+}
+
+@media (min-width: 1024px) {
+  .grid-overlay {
+    background-image: repeating-linear-gradient(
+      to right,
+      rgba(217, 232, 226, 0.02) 0px,
+      rgba(217, 232, 226, 0.02) 1px,
+      transparent 1px,
+      transparent calc(100% / 6)
+    );
+  }
 }
 
 /* ── CRITICAL: constrain all SVG icons globally ── */
 svg {
   display: inline-block;
   flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  transition: color 160ms ease, transform 180ms ease;
 }

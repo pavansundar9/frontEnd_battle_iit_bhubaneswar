@@ -64,9 +64,9 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-noir border-t border-powder/10 overflow-hidden">
+    <footer className="relative bg-noir border-t border-powder/6 overflow-hidden">
       {/* Large wordmark treatment */}
-      <div className="relative border-b border-powder/10 overflow-hidden">
+      <div className="relative border-b border-powder/6 overflow-hidden">
         {/* Glow behind wordmark */}
         <div
           className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] pointer-events-none"
@@ -80,12 +80,12 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-12 relative z-10">
           {/* Wordmark */}
           <div className="flex items-center gap-4 mb-3">
-            <Cube className="w-10 h-10 text-forsythia" />
-            <span className="font-mono font-bold text-5xl sm:text-7xl lg:text-8xl text-powder/10 select-none tracking-tighter">
+            <Cube className="w-6 h-6 text-forsythia" />
+            <span className="font-sans font-semibold text-4xl sm:text-6xl lg:text-7xl text-powder/12 select-none tracking-tight">
               FlowMind
             </span>
           </div>
-          <p className="font-mono text-sm text-powder/35 max-w-md leading-relaxed">
+          <p className="font-sans text-sm text-powder/35 max-w-md leading-relaxed">
             AI automation infrastructure for teams that move fast and break
             nothing. Build, deploy, and scale agents without the ops overhead.
           </p>

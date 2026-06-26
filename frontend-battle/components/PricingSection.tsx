@@ -54,11 +54,12 @@ function PricingCard({
   return (
     <article
       className={`
-        relative flex flex-col rounded-xl border p-6 lg:p-8
+        relative flex flex-col rounded-xl border p-6 lg:p-8 transform-gpu will-change-transform
+        transition-shadow transition-transform duration-200 ease-out
         ${
           highlighted
-            ? "bg-nocturnal border-forsythia/60 shadow-[0_0_48px_rgba(255,200,1,0.07)]"
-            : "bg-nocturnal/40 border-powder/10"
+            ? "bg-nocturnal border-forsythia/60 shadow-[0_18px_60px_rgba(255,200,1,0.07)] hover:shadow-[0_24px_80px_rgba(255,200,1,0.09)] hover:scale-[1.01]"
+            : "bg-nocturnal/40 border-powder/10 hover:shadow-[0_12px_40px_rgba(17,76,90,0.14)] hover:scale-[1.01]"
         }
       `}
     >
@@ -187,15 +188,15 @@ export default function PricingSection() {
     <section
       id="pricing"
       aria-label="Pricing"
-      className="relative py-24 lg:py-32 border-b border-powder/10"
+      className="relative py-28 lg:py-36 border-b border-powder/6 fade-up fade-up-1"
     >
       <div className="grid-overlay" aria-hidden />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-12 flex flex-col items-center text-center gap-4">
+        <div className="mb-16 flex flex-col items-center text-center gap-4">
           <p className="section-label">// PRICING</p>
-          <h2 className="font-mono font-bold text-3xl lg:text-5xl text-powder max-w-xl leading-tight">
+          <h2 className="font-sans font-semibold text-3xl lg:text-5xl text-powder max-w-xl leading-tight">
             Simple pricing. No surprises.
           </h2>
           <p className="text-powder/55 max-w-md leading-relaxed">
@@ -210,7 +211,7 @@ export default function PricingSection() {
           <div
             role="group"
             aria-label="Billing cycle"
-            className="flex items-center bg-nocturnal/60 border border-powder/10 rounded-lg p-1 gap-1"
+            className="flex items-center bg-nocturnal/60 border border-powder/6 rounded-lg p-1 gap-1"
           >
             {(["monthly", "annual"] as Cycle[]).map((c) => (
               <button
@@ -247,7 +248,7 @@ export default function PricingSection() {
               value={currency}
               onChange={(e) => handleCurrencyChange(e.target.value as Currency)}
               aria-label="Select currency"
-              className="font-mono text-xs appearance-none bg-nocturnal/60 border border-powder/10 rounded-lg px-4 py-2.5 pr-8 text-powder/80 hover:border-powder/25 transition-colors duration-150 ease-out cursor-pointer focus:outline-none focus:ring-1 focus:ring-forsythia/50"
+              className="font-mono text-xs appearance-none bg-nocturnal/60 border border-powder/6 rounded-lg px-4 py-2.5 pr-8 text-powder/80 hover:border-powder/20 transition-colors duration-150 ease-out cursor-pointer focus:outline-none focus:ring-1 focus:ring-forsythia/50"
             >
               {CURRENCIES.map((c) => (
                 <option key={c} value={c} className="bg-noir">

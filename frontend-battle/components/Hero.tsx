@@ -41,7 +41,7 @@ export default function Hero() {
           </p>
 
           {/* Heading */}
-          <h1 className="fade-up fade-up-2 font-mono font-bold text-4xl sm:text-5xl lg:text-7xl leading-[1.05] tracking-tight max-w-4xl">
+          <h1 className="fade-up fade-up-2 font-sans font-extrabold text-4xl sm:text-5xl lg:text-7xl leading-[1.05] tracking-tight max-w-4xl">
             Automate anything.{" "}
             <span className="text-forsythia">Ship faster.</span>
             <br />
@@ -59,14 +59,14 @@ export default function Hero() {
           <div className="fade-up fade-up-4 mt-10 flex flex-wrap gap-4 items-center">
             <Link
               href="#pricing"
-              className="font-mono font-semibold bg-forsythia text-noir px-6 py-3 rounded-md hover:bg-saffron transition-colors duration-150 ease-out text-sm"
+              className="font-sans font-semibold bg-forsythia text-noir px-6 py-3 rounded-md hover:bg-saffron transition-colors duration-150 ease-out text-sm"
             >
               Start building free
             </Link>
 
             <Link
               href="#features"
-              className="font-mono text-sm text-powder/70 border border-powder/20 px-6 py-3 rounded-md hover:border-powder/40 hover:text-powder transition-colors duration-150 ease-out flex items-center gap-2"
+              className="font-sans text-sm text-powder/70 border border-powder/20 px-6 py-3 rounded-md hover:border-powder/40 hover:text-powder transition-colors duration-150 ease-out flex items-center gap-2"
             >
               See how it works
               <ArrowTrendingUp className="w-4 h-4" />
@@ -91,7 +91,7 @@ export default function Hero() {
             ].map((pill) => (
               <span
                 key={pill.text}
-                className="flex items-center gap-1.5 font-mono text-xs text-powder/60 bg-nocturnal/60 border border-powder/10 rounded-full px-3 py-1.5"
+                className="flex items-center gap-1.5 font-sans text-xs text-powder/60 bg-nocturnal/60 border border-powder/6 rounded-full px-3 py-1.5"
               >
                 <span className="text-forsythia">{pill.icon}</span>
                 {pill.text}
@@ -107,7 +107,7 @@ export default function Hero() {
       {/* Social Proof */}
       <section
         aria-label="Used by teams at"
-        className="relative bg-nocturnal/30 border-b border-powder/10"
+        className="relative bg-nocturnal/30 border-b border-powder/6"
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
           <p className="section-label text-center mb-6 text-powder/40">
